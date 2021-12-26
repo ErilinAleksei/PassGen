@@ -206,7 +206,7 @@ def main():
         if len(data['birthday']) > 0:
             if isDate(data['birthday']) == False:
                 print('Invalid birthday')
-                exit()
+                exit(0)
             else:
                 birthday['day'], birthday['mon'], birthday['year'] = data['birthday'].split('.')
         print("Generating passwords...!\n")
