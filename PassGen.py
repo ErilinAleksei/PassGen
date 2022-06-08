@@ -1,5 +1,3 @@
-#!/bin/python
-
 EOF = -1
 
 DEFAULT_NAME_FILE = 'passwords.dic'
@@ -63,12 +61,30 @@ def passJoinBirthday(listPass, birthday):
     passList = []
     if len(listPass) > 0 and len(birthday) > 0:
         for pwd in listPass:
+            passList.append('{}{}'.format(birthday['day'], pwd))
+            passList.append('{}-{}'.format(birthday['day'], pwd))
+            passList.append('{}_{}'.format(birthday['day'], pwd))
+            passList.append('{}{}'.format(pwd, birthday['day']))
+            passList.append('{}-{}'.format(pwd, birthday['day']))
+            passList.append('{}_{}'.format(pwd, birthday['day']))            
+            passList.append('{}{}'.format(birthday['mon'], pwd))
+            passList.append('{}-{}'.format(birthday['mon'], pwd))
+            passList.append('{}_{}'.format(birthday['mon'], pwd))
+            passList.append('{}{}'.format(pwd, birthday['mon']))
+            passList.append('{}-{}'.format(pwd, birthday['mon']))
+            passList.append('{}_{}'.format(pwd, birthday['mon']))            
             passList.append('{}{}'.format(birthday['year'], pwd))
             passList.append('{}-{}'.format(birthday['year'], pwd))
             passList.append('{}_{}'.format(birthday['year'], pwd))
             passList.append('{}{}'.format(pwd, birthday['year']))
             passList.append('{}-{}'.format(pwd, birthday['year']))
-            passList.append('{}_{}'.format(pwd, birthday['year']))
+            passList.append('{}_{}'.format(pwd, birthday['year']))            
+            passList.append('{}{}'.format(birthday['year'][-2:], pwd))
+            passList.append('{}-{}'.format(birthday['year'][-2:], pwd))
+            passList.append('{}_{}'.format(birthday['year'][-2:], pwd))
+            passList.append('{}{}'.format(pwd, birthday['year'][-2:]))
+            passList.append('{}-{}'.format(pwd, birthday['year'][-2:]))
+            passList.append('{}_{}'.format(pwd, birthday['year'][-2:]))
             if birthday['year'].find('1') != EOF:
                 passList.append('{}{}'.format(birthday['year'].replace('1', '!'), pwd))
                 passList.append('{}-{}'.format(birthday['year'].replace('1', '!'), pwd))
