@@ -114,7 +114,7 @@ def main():
                 return 0
             elif opt == "--pass-file":               
                 banner()
-                gen_pass_form_file(arg)
+                gen_pass_from_file(arg)
                 return 0
             elif opt == "--pass-word":                
                 banner()
