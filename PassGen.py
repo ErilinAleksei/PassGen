@@ -76,7 +76,7 @@ def gen_pass_person():
     pass_save_file('{}.dic'.format(data['firstname']), passwd)
     
     
-def gen_pass_form_file(filename):
+def gen_pass_from_file(filename):
     clear()
     passwd_list = []
     if os.path.isfile(filename):
