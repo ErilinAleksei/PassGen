@@ -2,6 +2,7 @@ import generate
 import person
 
 import sys
+import getopt
 import os
 import os.path
 
@@ -41,9 +42,21 @@ def pass_save_file(filename, list_pass):
         return True
     except:
         return False
-
-
-def menu_person():
+        
+def help():
+    print("OPTIONS:");
+    print("\t--person\tGenerate passowrd base person");
+    print("\t--pass-file=\tGenerate passowrd form file");
+    print("\t--pass-word=\tGenerate passowrd from single word");
+    print("\t-h\tUsing help");
+    print("EXAMPLES:");
+    print("\tpassgen.py --person");
+    print("\tpassgen.py --pass-word=password");
+    print("\tpassgen.py --pass-file=dict.txt");
+    
+    
+def gen_pass_person():
+    clear()
     data = {}       
     data['firstname'] = str(input("Input Name: ")).lower()
     data['lastname'] = str(input("Input Surname: ")).lower()
@@ -61,67 +74,59 @@ def menu_person():
             return
     passwd = person.Person().gen_pass(data)
     pass_save_file('{}.dic'.format(data['firstname']), passwd)
-        
     
     
-    
-
-
-def menu_gen_pass():
+def gen_pass_form_file(filename):
     clear()
     passwd_list = []
-    while True:
-        print("0) Exit")            
-        print("1) Generate passowrd form files")
-        print("2) Generate passowrd from single word")
-        value = int(input("> "))
-        if value == 1:
-            filename = str(input("Input file name: "))
-            if os.path.isfile(filename):
-                print("\n[+] Please wait password generation...\n")
-                with open(filename, "r") as f:
-                    for line in f: 
-                        passwd_list.extend(generate.Passwords().names(line.strip()))
-                        passwd_list.extend(generate.Passwords().digits(passwd_list))
-                        passwd_list.extend(generate.Passwords().replace_chars(passwd_list))
-                    pass_save_file(DEFAULT_NAME_FILE, list(set(passwd_list)))
-            else:
-                print("[-] File not found: {}".format(filename))
-        elif value == 2:
-            word = str(input("Input word: ")).lower()
-            if len(word) > 0:
-                print("\n[+] Please wait password generation...\n")
-                passwd_list.extend(generate.Passwords().names(word))
+    if os.path.isfile(filename):
+        print("\n[+] Please wait password generation...\n")
+        with open(filename, "r") as f:
+            for line in f: 
+                passwd_list.extend(generate.Passwords().names(line.strip()))
                 passwd_list.extend(generate.Passwords().digits(passwd_list))
                 passwd_list.extend(generate.Passwords().replace_chars(passwd_list))
                 pass_save_file(DEFAULT_NAME_FILE, list(set(passwd_list)))
-        elif value == 0:
-            return   
- 
+    else:
+        print("[-] File not found: {}".format(filename))
 
-def menu_main():   
-    while True:
-        try:
-            value = 0            
-            print("0) Exit")
-            print("1) Generate passowrd base person")
-            print("2) Generate passowrd\n")
-            value = int(input("> "))                     
-            if value == 1:
-                menu_person()
-            elif value == 2:
-                menu_gen_pass()          
-            elif value == 0:                
-                return None
-            else:
-                pass
-        except KeyboardInterrupt:
-            exit(0)
-
-    
+        
+def gen_pass_word(word):
+    clear()
+    passwd_list = []
+    if len(word) > 0:
+        print("\n[+] Please wait password generation...\n")
+        passwd_list.extend(generate.Passwords().names(word))
+        passwd_list.extend(generate.Passwords().digits(passwd_list))
+        passwd_list.extend(generate.Passwords().replace_chars(passwd_list))
+        pass_save_file(DEFAULT_NAME_FILE, list(set(passwd_list)))
+        
+        
 def main():
-    banner()
-    menu_main()
+    try:
+        opts, args = getopt.getopt(sys.argv[1:], "h", ["person", "pass-file=", "pass-word="])
+        for opt, arg in opts:
+            if opt == "--person":                
+                banner()
+                gen_pass_person()
+                return 0
+            elif opt == "--pass-file":               
+                banner()
+                gen_pass_form_file(arg)
+                return 0
+            elif opt == "--pass-word":                
+                banner()
+                gen_pass_word(arg)
+                return 0
+            elif opt == "-h":
+                help()
+            else:
+                print("Invalid argument") 
+    except getopt.GetoptError as err:
+        print(err)
+    except KeyboardInterrupt:
+        return
+    return None
 
     
 if __name__ == '__main__':

@@ -94,7 +94,7 @@ class Person():
             pass_list.extend(self.join_names(fname, lname))
             if len(birthday) > 0 :
                 pass_list.extend(self.names_join_birthday(fname, lname, birthday))
-        if len(data['firstname']) > 0 and len(data['lastname']) > 0 and len(data['middlename']) > 0 :
+        if len(data['firstname']) > 0 and len(data['lastname']) > 0 and len(data['middlename']) > 0:
             pass_list.extend(self.initials(data['firstname'], data['lastname'], data['middlename'], birthday))
         return list(set(pass_list))
             
