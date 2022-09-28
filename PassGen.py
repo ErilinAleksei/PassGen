@@ -100,6 +100,8 @@ def gen_pass_word(word):
         passwd_list.extend(generate.Passwords().digits(passwd_list))
         passwd_list.extend(generate.Passwords().replace_chars(passwd_list))
         pass_save_file(DEFAULT_NAME_FILE, list(set(passwd_list)))
+    else
+        print("Word not found")
         
         
 def main():
