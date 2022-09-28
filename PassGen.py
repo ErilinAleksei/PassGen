@@ -122,8 +122,6 @@ def main():
                 return 0
             elif opt == "-h":
                 help()
-            else:
-                print("Invalid argument") 
     except getopt.GetoptError as err:
         print(err)
     except KeyboardInterrupt:
