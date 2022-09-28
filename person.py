@@ -94,7 +94,7 @@ class Person():
             pass_list.extend(self.join_names(fname, lname))
             if len(birthday) > 0 :
                 pass_list.extend(self.names_join_birthday(fname, lname, birthday))
-        if len(data['firstname']) > 0 and len(data['lastname']) > 0 and len(data['middlename']) > 0 and len(birthday) > 0:
+        if len(data['firstname']) > 0 and len(data['lastname']) > 0 and len(data['middlename']) > 0 :
             pass_list.extend(self.initials(data['firstname'], data['lastname'], data['middlename'], birthday))
         return list(set(pass_list))
             
@@ -170,6 +170,7 @@ class Person():
         pass_list.extend(pwd)
         for p in pwd:
             pass_list.extend(generate.Passwords().names(p))
-        pass_list.extend(self.join_birthday(pass_list, birthday))
+        if len(birthday) > 0 :
+            pass_list.extend(self.join_birthday(pass_list, birthday))
         pass_list.extend(generate.Passwords().replace_chars(pass_list))
         return pass_list  
