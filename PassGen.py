@@ -86,7 +86,7 @@ def gen_pass_from_file(filename):
                 passwd_list.extend(generate.Passwords().names(line.strip()))
                 passwd_list.extend(generate.Passwords().digits(passwd_list))
                 passwd_list.extend(generate.Passwords().replace_chars(passwd_list))
-                pass_save_file(DEFAULT_NAME_FILE, list(set(passwd_list)))
+            pass_save_file(DEFAULT_NAME_FILE, list(set(passwd_list)))
     else:
         print("[-] File not found: {}".format(filename))
 
